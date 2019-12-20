@@ -9,11 +9,11 @@ import servlet.MainServlet;
 public class Main {
     public static void main(String[] args) throws Exception {
 
-        MainServlet mainServlet = new MainServlet();
-        AddUserServlet addUserServlet = new AddUserServlet();
-        DeleteUserServlet deleteUserServlet = new DeleteUserServlet();
-        EditUserServlet editUserServlet = new EditUserServlet();
-
+//        MainServlet mainServlet = new MainServlet();
+//        AddUserServlet addUserServlet = new AddUserServlet();
+//        DeleteUserServlet deleteUserServlet = new DeleteUserServlet();
+//        EditUserServlet editUserServlet = new EditUserServlet();
+//
 //        ServletContextHandler servletContextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
 //        servletContextHandler.addServlet(new ServletHolder(mainServlet), "/");
 //        servletContextHandler.addServlet(new ServletHolder(addUserServlet), "/add/*");

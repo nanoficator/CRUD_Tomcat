@@ -32,7 +32,7 @@ public class MainServlet extends HttpServlet {
         pageVariables.put("rowsHQL", allUsersHQL.size());
         pageVariables.put("tableSQL", jsonSQL);
         pageVariables.put("rowsSQL", allUsersSQL.size());
-        resp.getWriter().println(PageGenerator.getInstance().getPage("MainPage.html", pageVariables));
+        resp.getWriter().println(PageGenerator.getInstance().getPage("MainPage.jsp", pageVariables));
     }
 
     @Override
