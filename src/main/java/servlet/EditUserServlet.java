@@ -43,7 +43,7 @@ public class EditUserServlet extends HttpServlet {
             req.setAttribute("agender", "male");
         }
 
-        getServletContext().getRequestDispatcher("/AddUserPage.jsp").forward(req, resp);
+        getServletContext().getRequestDispatcher("/EditUserPage.jsp").forward(req, resp);
         resp.setStatus(HttpServletResponse.SC_OK);
     }
 
