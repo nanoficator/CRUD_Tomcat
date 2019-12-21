@@ -51,7 +51,7 @@ public class AddUserServlet extends HttpServlet {
                     userName.equals("") ||
                     password.equals("") ||
                     age.equals("") ||
-                    gender.equals("")) {
+                    gender == null) {
                 req.setAttribute("message", "Error: All fields are required!");
                 getServletContext().getRequestDispatcher("/ResultPage.jsp").forward(req, resp);
                 resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -82,7 +82,7 @@ public class AddUserServlet extends HttpServlet {
                     userName.equals("") ||
                     password.equals("") ||
                     age.equals("") ||
-                    gender.equals("")) {
+                    gender == null) {
                 req.setAttribute("message", "Error: All fields are required!");
                 getServletContext().getRequestDispatcher("/ResultPage.jsp").forward(req, resp);
                 resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
