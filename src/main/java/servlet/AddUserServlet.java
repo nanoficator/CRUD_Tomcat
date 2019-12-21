@@ -3,7 +3,6 @@ package servlet;
 import model.User;
 import service.UserServiceHQL;
 import service.UserServiceSQL;
-import util.PageGenerator;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashMap;
 
 @WebServlet("/add/*")
 public class AddUserServlet extends HttpServlet {
@@ -21,7 +19,6 @@ public class AddUserServlet extends HttpServlet {
         if (req.getPathInfo().contains("HQL")) {
             req.setAttribute("QL", "HQL");
             getServletContext().getRequestDispatcher("/AddUserPage.jsp").forward(req, resp);
-
         }
 
         if (req.getPathInfo().contains("SQL")) {
