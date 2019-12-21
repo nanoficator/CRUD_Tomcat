@@ -29,7 +29,7 @@ public class DeleteUserServlet extends HttpServlet {
         } else if (req.getPathInfo().contains("user")) {
             String userName = UserServiceHQL.getInstance().getUserByID(Long.parseLong(req.getParameter("id"))).getUserName();
             req.setAttribute("message", "user " + userName);
-            req.setAttribute("id", "user?id" + req.getParameter("id"));
+            req.setAttribute("id", "user?id=" + req.getParameter("id"));
             getServletContext().getRequestDispatcher("/DeleteUserPage.jsp").forward(req, resp);
         }
     }
