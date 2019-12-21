@@ -11,6 +11,6 @@
     <title>Start page</title>
   </head>
   <body>
-  <a href="/">START</a>
+  <a href="/main">START</a>
   </body>
 </html>

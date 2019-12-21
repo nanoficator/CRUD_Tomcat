@@ -1,3 +1,6 @@
+<%@ page import="java.util.List" %>
+<%@ page import="model.User" %>
+<%@ page import="java.util.Iterator" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -13,79 +16,102 @@
         <th width="4%"></th>
         <th width="48%">SQL</th>
     </tr>
-    <td>
-        <script>
 
-            var table = JSON.parse('${tableHQL}');
-            var rows = parseInt(${rowsHQL});
+    <tr>
+        <td>
+            <table width="100%" border="1">
 
-            document.write ('<table width="100%" border="1">');
-            document.write("<th>ID</th>");
-            document.write("<th>First Name</th>");
-            document.write("<th>Second Name</th>");
-            document.write("<th>Username</th>");
-            document.write("<th>Age</th>");
-            document.write("<th>Gender</th>");
-            document.write("<th>Options</th>");
-            for (i = 0; i < rows; i++) {
-                document.writeln("<tr>");
-                document.write("<td>" + table[i].id + "</td>");
-                document.write("<td>" + table[i].firstName + "</td>");
-                document.write("<td>" + table[i].secondName + "</td>");
-                document.write("<td>" + table[i].userName + "</td>");
-                document.write("<td>" + table[i].age + "</td>");
-                document.write("<td>" + table[i].gender + "</td>");
-                document.write("<td>" + "<a href=/delete/HQL/user?id=" + table[i].id + ">Remove</a>" + " / " + "<a href=/edit/HQL/user?id=" + table[i].id + ">Edit</a>" + "</td>");
-                document.writeln("</tr>");
-            }
-            document.write ("</table> ");
+               <tr>
+                    <th>ID</th>
+                    <th>First Name</th>
+                    <th>Second Name</th>
+                    <th>Username</th>
+                    <th>Age</th>
+                    <th>Gender</th>
+                    <th>Options</th>
+               </tr>
 
-        </script>
+                <%
+                    List<User> allUsersHQL = (List<User>) request.getAttribute("allUsersHQL");
+                    Iterator<User> iteratorHQL = allUsersHQL.iterator();
+                    while (iteratorHQL.hasNext()) {
+                %>
 
-        <br>
+                <tr>
+                    <%User user = iteratorHQL.next();%>
+                    <td><%=user.getId()%></td>
+                    <td><%=user.getFirstName()%></td>
+                    <td><%=user.getSecondName()%></td>
+                    <td><%=user.getUserName()%></td>
+                    <td><%=user.getAge()%></td>
+                    <td><%=user.getGender()%></td>
+                    <td><a href=/delete/HQL/user?id=<%=user.getId()%>>Remove</a> / <a href=/edit/HQL/user?id=<%=user.getId()%>>Edit</a></td>
+                </tr>
+                <%
+                    }
+                %>
+            </table>
 
-        <table align="center" border="0">
-            <th><a href="/delete/HQL/all">CLEAR DATA BASE</a></th>
-            <th><a href="/add/HQL">ADD NEW USER</a></th>
-        </table>
-    </td>
-    <td></td>
-    <td>
-        <script>
+        </td>
 
-            var table = JSON.parse('${tableSQL}');
-            var rows = parseInt(${rowsSQL});
+        <td></td>
 
-            document.write ('<table width="100%" border="1">');
-            document.write("<th>ID</th>");
-            document.write("<th>First Name</th>");
-            document.write("<th>Second Name</th>");
-            document.write("<th>Username</th>");
-            document.write("<th>Age</th>");
-            document.write("<th>Gender</th>");
-            document.write("<th>Options</th>");
-            for (i = 0; i < rows; i++) {
-                document.writeln("<tr>");
-                document.write("<td>" + table[i].id + "</td>");
-                document.write("<td>" + table[i].firstName + "</td>");
-                document.write("<td>" + table[i].secondName + "</td>");
-                document.write("<td>" + table[i].userName + "</td>");
-                document.write("<td>" + table[i].age + "</td>");
-                document.write("<td>" + table[i].gender + "</td>");
-                document.write("<td>" + "<a href=/delete/SQL/user?id=" + table[i].id + ">Remove</a>" + " / " + "<a href=/edit/SQL/user?id=" + table[i].id + ">Edit</a>" + "</td>");
-                document.writeln("</tr>");
-            }
-            document.write ("</table> ");
+        <td>
+            <table width="100%" border="1">
 
-        </script>
+                <tr>
+                    <th>ID</th>
+                    <th>First Name</th>
+                    <th>Second Name</th>
+                    <th>Username</th>
+                    <th>Age</th>
+                    <th>Gender</th>
+                    <th>Options</th>
+                </tr>
 
-        <br>
+                <%
+                    List<User> allUsersSQL = (List<User>) request.getAttribute("allUsersSQL");
+                    Iterator<User> iteratorSQL = allUsersSQL.iterator();
+                    while (iteratorSQL.hasNext()) {
+                %>
 
-        <table align="center" border="0">
-            <th><a href="/delete/SQL/all">CLEAR DATA BASE</a></th>
-            <th><a href="/add/SQL">ADD NEW USER</a></th>
-        </table>
-    </td>
+                <tr>
+                    <%User user = iteratorSQL.next();%>
+                    <td><%=user.getId()%></td>
+                    <td><%=user.getFirstName()%></td>
+                    <td><%=user.getSecondName()%></td>
+                    <td><%=user.getUserName()%></td>
+                    <td><%=user.getAge()%></td>
+                    <td><%=user.getGender()%></td>
+                    <td><a href=/delete/HQL/user?id=<%=user.getId()%>>Remove</a> / <a href=/edit/HQL/user?id=<%=user.getId()%>>Edit</a></td>
+                </tr>
+                <%
+                    }
+                %>
+            </table>
+
+        </td>
+
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            <table align="center" border="0">
+                <th><a href="/delete/HQL/all">CLEAR DATA BASE</a></th>
+                <th><a href="/add/HQL">ADD NEW USER</a></th>
+            </table>
+        </td>
+
+        <td></td>
+
+        <td>
+            <table align="center" border="0">
+                <th><a href="/delete/SQL/all">CLEAR DATA BASE</a></th>
+                <th><a href="/add/SQL">ADD NEW USER</a></th>
+            </table>
+        </td>
+    </tr>
 
 </table>
 

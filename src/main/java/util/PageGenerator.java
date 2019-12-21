@@ -14,7 +14,7 @@ public class PageGenerator {
 
     private static PageGenerator pageGenerator;
 
-    private static final String HTML_DIR = "templates";
+    private static final String HTML_DIR = "web";
 
     private final Configuration cfg;
 
