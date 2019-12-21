@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<a href=/>Back to main page</a>
+<a href=/main>Back to main page</a>
 
 <form action="/add/${QL}" method="post">
     <p>First Name: <input type="text" name="firstName"></p>
