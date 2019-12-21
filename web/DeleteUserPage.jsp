@@ -11,7 +11,7 @@
     <button>YES</button>
 </form>
 
-<form action="/" method="get">
+<form action="/main" method="get">
     <button>NO</button>
 </form>
 
