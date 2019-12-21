@@ -18,39 +18,37 @@ public class EditUserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        HashMap<String, Object> pageVariables = new HashMap<>();
 
         if (req.getPathInfo().contains("HQL")) {
-            pageVariables.put("QL", "HQL");
+            req.setAttribute("QL", "HQL");
         }
         if (req.getPathInfo().contains("SQL")) {
-            pageVariables.put("QL", "SQL");
+            req.setAttribute("QL", "SQL");
         }
 
         Long id = Long.parseLong(req.getParameter("id"));
         User changedUser = UserServiceHQL.getInstance().getUserByID(id);
 
-        pageVariables.put("id", id);
-        pageVariables.put("firstName", changedUser.getFirstName());
-        pageVariables.put("secondName", changedUser.getSecondName());
-        pageVariables.put("userName", changedUser.getUserName());
-        pageVariables.put("password", changedUser.getPassword());
-        pageVariables.put("age", changedUser.getAge());
-        pageVariables.put("gender", changedUser.getGender());
+        req.setAttribute("id", id);
+        req.setAttribute("firstName", changedUser.getFirstName());
+        req.setAttribute("secondName", changedUser.getSecondName());
+        req.setAttribute("userName", changedUser.getUserName());
+        req.setAttribute("password", changedUser.getPassword());
+        req.setAttribute("age", changedUser.getAge());
+        req.setAttribute("gender", changedUser.getGender());
+
         if (changedUser.getGender().equals("male")) {
-            pageVariables.put("agender", "female");
+            req.setAttribute("agender", "female");
         } else {
-            pageVariables.put("agender", "male");
+            req.setAttribute("agender", "male");
         }
 
-        resp.getWriter().println(PageGenerator.getInstance().getPage("EditUserPage.html", pageVariables));
+        getServletContext().getRequestDispatcher("/AddUserPage.jsp").forward(req, resp);
         resp.setStatus(HttpServletResponse.SC_OK);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        HashMap pageVariables = new HashMap();
 
         Long id = Long.parseLong(req.getParameter("id"));
         String firstName = req.getParameter("firstName");
@@ -63,8 +61,8 @@ public class EditUserServlet extends HttpServlet {
 
         if (req.getPathInfo().contains("HQL")) {
             if (!password.equals(confirmPassword)) {
-                pageVariables.put("message", "Error: Entered passwords do not match!");
-                resp.getWriter().println(PageGenerator.getInstance().getPage("ResultPage.html", pageVariables));
+                req.setAttribute("message", "Error: Entered passwords do not match!");
+                getServletContext().getRequestDispatcher("/ResultPage.jsp").forward(req, resp);
                 resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             } else if (firstName.equals("") ||
                     secondName.equals("") ||
@@ -72,8 +70,8 @@ public class EditUserServlet extends HttpServlet {
                     password.equals("") ||
                     age.equals("") ||
                     gender.equals("")) {
-                pageVariables.put("message", "Error: All fields are required!");
-                resp.getWriter().println(PageGenerator.getInstance().getPage("ResultPage.html", pageVariables));
+                req.setAttribute("message", "Error: All fields are required!");
+                getServletContext().getRequestDispatcher("/ResultPage.jsp").forward(req, resp);
                 resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             } else {
 
@@ -81,12 +79,12 @@ public class EditUserServlet extends HttpServlet {
 
                 String result = UserServiceHQL.getInstance().changeUser(changedUser);
                 if (result.contains("Error:")) {
-                    pageVariables.put("message", result);
-                    resp.getWriter().println(PageGenerator.getInstance().getPage("ResultPage.html", pageVariables));
+                    req.setAttribute("message", result);
+                    getServletContext().getRequestDispatcher("/ResultPage.jsp").forward(req, resp);
                     resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 } else {
-                    pageVariables.put("message", result);
-                    resp.getWriter().println(PageGenerator.getInstance().getPage("ResultPage.html", pageVariables));
+                    req.setAttribute("message", result);
+                    getServletContext().getRequestDispatcher("/ResultPage.jsp").forward(req, resp);
                     resp.setStatus(HttpServletResponse.SC_OK);
                 }
             }
@@ -94,8 +92,8 @@ public class EditUserServlet extends HttpServlet {
 
         if (req.getPathInfo().contains("SQL")) {
             if (!password.equals(confirmPassword)) {
-                pageVariables.put("message", "Error: Entered passwords do not match!");
-                resp.getWriter().println(PageGenerator.getInstance().getPage("ResultPage.html", pageVariables));
+                req.setAttribute("message", "Error: Entered passwords do not match!");
+                getServletContext().getRequestDispatcher("/ResultPage.jsp").forward(req, resp);
                 resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             } else if (firstName.equals("") ||
                     secondName.equals("") ||
@@ -103,8 +101,8 @@ public class EditUserServlet extends HttpServlet {
                     password.equals("") ||
                     age.equals("") ||
                     gender.equals("")) {
-                pageVariables.put("message", "Error: All fields are required!");
-                resp.getWriter().println(PageGenerator.getInstance().getPage("ResultPage.html", pageVariables));
+                req.setAttribute("message", "Error: All fields are required!");
+                getServletContext().getRequestDispatcher("/ResultPage.jsp").forward(req, resp);
                 resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             } else {
 
@@ -112,12 +110,12 @@ public class EditUserServlet extends HttpServlet {
 
                 String result = new UserServiceSQL().changeUser(changedUser);
                 if (result.contains("Error:")) {
-                    pageVariables.put("message", result);
-                    resp.getWriter().println(PageGenerator.getInstance().getPage("ResultPage.html", pageVariables));
+                    req.setAttribute("message", result);
+                    getServletContext().getRequestDispatcher("/ResultPage.jsp").forward(req, resp);
                     resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 } else {
-                    pageVariables.put("message", result);
-                    resp.getWriter().println(PageGenerator.getInstance().getPage("ResultPage.html", pageVariables));
+                    req.setAttribute("message", result);
+                    getServletContext().getRequestDispatcher("/ResultPage.jsp").forward(req, resp);
                     resp.setStatus(HttpServletResponse.SC_OK);
                 }
             }

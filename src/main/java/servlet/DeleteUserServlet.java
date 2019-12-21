@@ -17,37 +17,33 @@ public class DeleteUserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        HashMap<String, Object> pageVariables = new HashMap<>();
-
         if (req.getPathInfo().contains("HQL")) {
-            pageVariables.put("QL", "HQL");
+            req.setAttribute("QL", "HQL");
         }
         if (req.getPathInfo().contains("SQL")) {
-            pageVariables.put("QL", "SQL");
+            req.setAttribute("QL", "SQL");
         }
 
         if (req.getPathInfo().contains("all")) {
-            pageVariables.put("message", "all users");
-            pageVariables.put("id", "all");
-            resp.getWriter().println(PageGenerator.getInstance().getPage("DeleteUserPage.html", pageVariables));
+            req.setAttribute("message", "all users");
+            req.setAttribute("id", "all");
+            getServletContext().getRequestDispatcher("/AddUserPage.jsp").forward(req, resp);
         } else if (req.getPathInfo().contains("user")) {
             String userName = UserServiceHQL.getInstance().getUserByID(Long.parseLong(req.getParameter("id"))).getUserName();
-            pageVariables.put("message", "user " + userName);
-            pageVariables.put("id", "user?id" + req.getParameter("id"));
-            resp.getWriter().println(PageGenerator.getInstance().getPage("DeleteUserPage.html", pageVariables));
+            req.setAttribute("message", "user " + userName);
+            req.setAttribute("id", "user?id" + req.getParameter("id"));
+            getServletContext().getRequestDispatcher("/AddUserPage.jsp").forward(req, resp);
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        HashMap<String, Object> pageVariables = new HashMap<>();
-
         if (req.getPathInfo().contains("HQL")) {
             if (req.getPathInfo().contains("all")) {
                 UserServiceHQL.getInstance().deleteAllUsers();
-                pageVariables.put("message", "Data Base is clear!");
-                resp.getWriter().println(PageGenerator.getInstance().getPage("ResultPage.html", pageVariables));
+                req.setAttribute("message", "Data Base is clear!");
+                getServletContext().getRequestDispatcher("/AddUserPage.jsp").forward(req, resp);
                 resp.setStatus(HttpServletResponse.SC_OK);
             }
 
@@ -56,12 +52,12 @@ public class DeleteUserServlet extends HttpServlet {
 
                 String result = UserServiceHQL.getInstance().deleteUserById(userId);
                 if (result.contains("Error:")) {
-                    pageVariables.put("message", result);
-                    resp.getWriter().println(PageGenerator.getInstance().getPage("ResultPage.html", pageVariables));
+                    req.setAttribute("message", result);
+                    getServletContext().getRequestDispatcher("/AddUserPage.jsp").forward(req, resp);
                     resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 } else {
-                    pageVariables.put("message", result);
-                    resp.getWriter().println(PageGenerator.getInstance().getPage("ResultPage.html", pageVariables));
+                    req.setAttribute("message", result);
+                    getServletContext().getRequestDispatcher("/AddUserPage.jsp").forward(req, resp);
                     resp.setStatus(HttpServletResponse.SC_OK);
                 }
             }
@@ -70,8 +66,8 @@ public class DeleteUserServlet extends HttpServlet {
         if (req.getPathInfo().contains("SQL")) {
             if (req.getPathInfo().contains("all")) {
                 new UserServiceSQL().deleteAllUsers();
-                pageVariables.put("message", "Data Base is clear!");
-                resp.getWriter().println(PageGenerator.getInstance().getPage("ResultPage.html", pageVariables));
+                req.setAttribute("message", "Data Base is clear!");
+                getServletContext().getRequestDispatcher("/AddUserPage.jsp").forward(req, resp);
                 resp.setStatus(HttpServletResponse.SC_OK);
             }
 
@@ -80,12 +76,12 @@ public class DeleteUserServlet extends HttpServlet {
 
                 String result = new UserServiceSQL().deleteUserById(userId);
                 if (result.contains("Error:")) {
-                    pageVariables.put("message", result);
-                    resp.getWriter().println(PageGenerator.getInstance().getPage("ResultPage.html", pageVariables));
+                    req.setAttribute("message", result);
+                    getServletContext().getRequestDispatcher("/AddUserPage.jsp").forward(req, resp);
                     resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 } else {
-                    pageVariables.put("message", result);
-                    resp.getWriter().println(PageGenerator.getInstance().getPage("ResultPage.html", pageVariables));
+                    req.setAttribute("message", result);
+                    getServletContext().getRequestDispatcher("/AddUserPage.jsp").forward(req, resp);
                     resp.setStatus(HttpServletResponse.SC_OK);
                 }
             }

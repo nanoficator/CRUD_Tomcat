@@ -18,23 +18,20 @@ public class AddUserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        HashMap<String, Object> pageVariables = new HashMap<>();
-
         if (req.getPathInfo().contains("HQL")) {
-            pageVariables.put("QL", "HQL");
-            resp.getWriter().println(PageGenerator.getInstance().getPage("AddUserPage.html", pageVariables));
+            req.setAttribute("QL", "HQL");
+            getServletContext().getRequestDispatcher("/AddUserPage.jsp").forward(req, resp);
+
         }
 
         if (req.getPathInfo().contains("SQL")) {
-            pageVariables.put("QL", "SQL");
-            resp.getWriter().println(PageGenerator.getInstance().getPage("AddUserPage.html", pageVariables));
+            req.setAttribute("QL", "SQL");
+            getServletContext().getRequestDispatcher("/AddUserPage.jsp").forward(req, resp);
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        HashMap<String, Object> pageVariables = new HashMap<>();
 
         String firstName = req.getParameter("firstName");
         String secondName = req.getParameter("secondName");
@@ -46,8 +43,8 @@ public class AddUserServlet extends HttpServlet {
 
         if (req.getPathInfo().contains("HQL")) {
             if (!password.equals(confirmPassword)) {
-                pageVariables.put("message", "Error: Entered passwords do not match!");
-                resp.getWriter().println(PageGenerator.getInstance().getPage("ResultPage.html", pageVariables));
+                req.setAttribute("message", "Error: Entered passwords do not match!");
+                getServletContext().getRequestDispatcher("/ResultPage.jsp").forward(req, resp);
                 resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             } else if (firstName.equals("") ||
                     secondName.equals("") ||
@@ -55,8 +52,8 @@ public class AddUserServlet extends HttpServlet {
                     password.equals("") ||
                     age.equals("") ||
                     gender.equals("")) {
-                pageVariables.put("message", "Error: All fields are required!");
-                resp.getWriter().println(PageGenerator.getInstance().getPage("ResultPage.html", pageVariables));
+                req.setAttribute("message", "Error: All fields are required!");
+                getServletContext().getRequestDispatcher("/ResultPage.jsp").forward(req, resp);
                 resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             } else {
 
@@ -64,12 +61,12 @@ public class AddUserServlet extends HttpServlet {
 
                 String result = UserServiceHQL.getInstance().addUser(newUser);
                 if (result.contains("Error:")) {
-                    pageVariables.put("message", result);
-                    resp.getWriter().println(PageGenerator.getInstance().getPage("ResultPage.html", pageVariables));
+                    req.setAttribute("message", result);
+                    getServletContext().getRequestDispatcher("/ResultPage.jsp").forward(req, resp);
                     resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 } else {
-                    pageVariables.put("message", result);
-                    resp.getWriter().println(PageGenerator.getInstance().getPage("ResultPage.html", pageVariables));
+                    req.setAttribute("message", result);
+                    getServletContext().getRequestDispatcher("/ResultPage.jsp").forward(req, resp);
                     resp.setStatus(HttpServletResponse.SC_OK);
                 }
             }
@@ -77,8 +74,8 @@ public class AddUserServlet extends HttpServlet {
 
         if (req.getPathInfo().contains("SQL")) {
             if (!password.equals(confirmPassword)) {
-                pageVariables.put("message", "Error: Entered passwords do not match!");
-                resp.getWriter().println(PageGenerator.getInstance().getPage("ResultPage.html", pageVariables));
+                req.setAttribute("message", "Error: Entered passwords do not match!");
+                getServletContext().getRequestDispatcher("/ResultPage.jsp").forward(req, resp);
                 resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             } else if (firstName.equals("") ||
                     secondName.equals("") ||
@@ -86,8 +83,8 @@ public class AddUserServlet extends HttpServlet {
                     password.equals("") ||
                     age.equals("") ||
                     gender.equals("")) {
-                pageVariables.put("message", "Error: All fields are required!");
-                resp.getWriter().println(PageGenerator.getInstance().getPage("ResultPage.html", pageVariables));
+                req.setAttribute("message", "Error: All fields are required!");
+                getServletContext().getRequestDispatcher("/ResultPage.jsp").forward(req, resp);
                 resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             } else {
 
@@ -95,12 +92,12 @@ public class AddUserServlet extends HttpServlet {
 
                 String result = new UserServiceSQL().addUser(newUser);
                 if (result.contains("Error:")) {
-                    pageVariables.put("message", result);
-                    resp.getWriter().println(PageGenerator.getInstance().getPage("ResultPage.html", pageVariables));
+                    req.setAttribute("message", result);
+                    getServletContext().getRequestDispatcher("/ResultPage.jsp").forward(req, resp);
                     resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 } else {
-                    pageVariables.put("message", result);
-                    resp.getWriter().println(PageGenerator.getInstance().getPage("ResultPage.html", pageVariables));
+                    req.setAttribute("message", result);
+                    getServletContext().getRequestDispatcher("/ResultPage.jsp").forward(req, resp);
                     resp.setStatus(HttpServletResponse.SC_OK);
                 }
             }
