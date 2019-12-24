@@ -8,7 +8,7 @@
 
 <a href=/main>Back to main page</a>
 
-<form action="/add/${QL}" method="post">
+<form action="/add/" method="post">
     <p>First Name: <input type="text" name="firstName"></p>
     <p>Second Name: <input type="text" name="secondName"></p>
     <p>Username: <input type="text" name="userName"></p>

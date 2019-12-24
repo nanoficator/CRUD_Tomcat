@@ -1,22 +1,20 @@
 package DAO;
 
-import com.google.protobuf.DescriptorProtos;
-import freemarker.core.UnexpectedTypeException;
 import model.User;
-import org.hibernate.Transaction;
 
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
-public class UserServiceSQLDAO {
+public class UserServiceSqlDao implements UserServiceDao {
 
     private Connection connection;
 
-    public UserServiceSQLDAO(Connection connection) {
+    public UserServiceSqlDao(Connection connection) {
         this.connection = connection;
     }
 
+    @Override
     public List<User> getAllData() throws SQLException {
         List<User> allData = new LinkedList<>();
         Statement statement = connection.createStatement();
@@ -37,12 +35,14 @@ public class UserServiceSQLDAO {
         return allData;
     }
 
+    @Override
     public void deleteAllData() throws SQLException {
         Statement statement = connection.createStatement();
         statement.execute("delete from users");
         statement.close();
     }
 
+    @Override
     public void addData(User user) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement("insert into users (first_name, second_name, user_name, password, age, gender) values (?, ?, ?, ?, ?, ?)");
         preparedStatement.setString(1, user.getFirstName());
@@ -55,6 +55,7 @@ public class UserServiceSQLDAO {
         preparedStatement.close();
     }
 
+    @Override
     public void deleteData(User user) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement("delete from users where id = ?");
         preparedStatement.setLong(1, user.getId());
@@ -62,7 +63,8 @@ public class UserServiceSQLDAO {
         preparedStatement.close();
     }
 
-    public User getDataById(Long id) throws SQLException {
+    @Override
+    public User getDataByID(Long id) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement("select * from users where id = ?");
         preparedStatement.setLong(1, id);
         preparedStatement.execute();
@@ -81,6 +83,7 @@ public class UserServiceSQLDAO {
         return null;
     }
 
+    @Override
     public User getDataByUserName (String userName) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement("select * from users where user_name = ?");
         preparedStatement.setString(1,userName);
@@ -100,6 +103,7 @@ public class UserServiceSQLDAO {
         return null;
     }
 
+    @Override
     public void changeFirstName(Long id, String newFirstName) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement("update users set first_name = ? where id = ?");
         preparedStatement.setString(1, newFirstName);
@@ -108,6 +112,7 @@ public class UserServiceSQLDAO {
         preparedStatement.close();
     }
 
+    @Override
     public void changeSecondName(Long id, String newSecondName) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement("update users set second_name = ? where id = ?");
         preparedStatement.setString(1, newSecondName);
@@ -116,6 +121,7 @@ public class UserServiceSQLDAO {
         preparedStatement.close();
     }
 
+    @Override
     public void changeUserName(Long id, String newUserName) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement("update users set user_name = ? where id = ?");
         preparedStatement.setString(1, newUserName);
@@ -124,6 +130,7 @@ public class UserServiceSQLDAO {
         preparedStatement.close();
     }
 
+    @Override
     public void changePassword(Long id, String newPassword) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement("update users set password = ? where id = ?");
         preparedStatement.setString(1, newPassword);
@@ -132,6 +139,7 @@ public class UserServiceSQLDAO {
         preparedStatement.close();
     }
 
+    @Override
     public void changeAge(Long id, Long newAge) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement("update users set age = ? where id = ?");
         preparedStatement.setLong(1, newAge);
@@ -140,6 +148,7 @@ public class UserServiceSQLDAO {
         preparedStatement.close();
     }
 
+    @Override
     public void changeGender(Long id, String newGender) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement("update users set gender = ? where id = ?");
         preparedStatement.setString(1, newGender);
@@ -147,4 +156,5 @@ public class UserServiceSQLDAO {
         preparedStatement.execute();
         preparedStatement.close();
     }
+
 }

@@ -1,22 +1,29 @@
 package service;
 
-import DAO.UserServiceSQLDAO;
+import DAO.UserServiceDao;
+import DAO.UserServiceDaoFactory;
 import exception.DBException;
 import model.User;
 
-import java.sql.Connection;
-import java.sql.Driver;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
 
-public class UserServiceSQL {
+public class UserService {
 
-    public UserServiceSQL() {
+    private static UserService userService;
+
+    private UserService() {
+    }
+
+    public static UserService getInstance() {
+        if(userService == null) {
+            userService = new UserService();
+        }
+        return userService;
     }
 
     public List<User> getAllUsers() throws DBException {
-        UserServiceSQLDAO dao = getUserServiceSQLDAO();
+        UserServiceDao dao = UserServiceDaoFactory.getDao();
         try {
             return dao.getAllData();
         } catch (SQLException e) {
@@ -25,7 +32,7 @@ public class UserServiceSQL {
     }
 
     public void deleteAllUsers() throws DBException {
-        UserServiceSQLDAO dao = getUserServiceSQLDAO();
+        UserServiceDao dao = UserServiceDaoFactory.getDao();
         try {
             dao.deleteAllData();
         } catch (SQLException e) {
@@ -34,7 +41,7 @@ public class UserServiceSQL {
     }
 
     public boolean isExistUserName(String userName) throws DBException {
-        UserServiceSQLDAO dao = getUserServiceSQLDAO();
+        UserServiceDao dao = UserServiceDaoFactory.getDao();
         try{
             User userFromDB = dao.getDataByUserName(userName);
             if (userFromDB != null) {
@@ -47,16 +54,16 @@ public class UserServiceSQL {
     }
 
     public User getUserByID(Long id) throws DBException {
-        UserServiceSQLDAO dao = getUserServiceSQLDAO();
+        UserServiceDao dao = UserServiceDaoFactory.getDao();
         try {
-            return dao.getDataById(id);
+            return dao.getDataByID(id);
         } catch (SQLException e) {
             throw new DBException(e);
         }
     }
 
     public User getUserByUserName(String userName) throws DBException {
-        UserServiceSQLDAO dao = getUserServiceSQLDAO();
+        UserServiceDao dao = UserServiceDaoFactory.getDao();
         try {
             return dao.getDataByUserName(userName);
         } catch (SQLException e) {
@@ -74,7 +81,7 @@ public class UserServiceSQL {
             return "Error: Age can not be negative!";
         }
 
-        UserServiceSQLDAO dao = getUserServiceSQLDAO();
+        UserServiceDao dao = UserServiceDaoFactory.getDao();
         try {
             dao.addData(user);
             return "User was added!";
@@ -91,7 +98,7 @@ public class UserServiceSQL {
             return "Error: User does not exist!";
         }
 
-        UserServiceSQLDAO dao = getUserServiceSQLDAO();
+        UserServiceDao dao = UserServiceDaoFactory.getDao();
         try {
             dao.deleteData(userFromDB);
             return "User was deleted!";
@@ -108,7 +115,7 @@ public class UserServiceSQL {
             return "Error: User does not exist!";
         }
 
-        UserServiceSQLDAO dao = getUserServiceSQLDAO();
+        UserServiceDao dao = UserServiceDaoFactory.getDao();
         try {
             dao.deleteData(userFromDB);
             return "User was deleted!";
@@ -152,7 +159,7 @@ public class UserServiceSQL {
             return "Error: Age can not be negative!";
         }
 
-        UserServiceSQLDAO dao = getUserServiceSQLDAO();
+        UserServiceDao dao = UserServiceDaoFactory.getDao();
         try {
             dao.changeFirstName(id, newFirstName);
             dao.changeSecondName(id, newSecondName);
@@ -164,34 +171,5 @@ public class UserServiceSQL {
         } catch (SQLException e) {
             throw new DBException(e);
         }
-    }
-
-    private static Connection getMysqlConnection() {
-        try {
-            DriverManager.registerDriver((Driver) Class.forName("com.mysql.cj.jdbc.Driver").newInstance());
-
-            StringBuilder url = new StringBuilder();
-
-            url.
-                    append("jdbc:mysql://").          //db type
-                    append("localhost:").             //host name
-                    append("3306/").                  //port
-                    append("user_db?").          //db name
-                    append("user=root").              //login
-                    append("&password=p@ssw0rd").     //password
-                    append("&serverTimezone=UTC");    //setup server time
-
-            System.out.println("URL: " + url + "\n");
-
-            Connection connection = DriverManager.getConnection(url.toString(), "root", "p@ssw0rd");
-            return connection;
-        } catch (SQLException | ClassNotFoundException |IllegalAccessException | InstantiationException e) {
-            e.printStackTrace();
-            throw new IllegalStateException();
-        }
-    }
-
-    private static UserServiceSQLDAO getUserServiceSQLDAO() {
-        return new UserServiceSQLDAO(getMysqlConnection());
     }
 }

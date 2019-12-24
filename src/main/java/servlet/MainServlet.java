@@ -1,8 +1,7 @@
 package servlet;
 
 import model.User;
-import service.UserServiceHQL;
-import service.UserServiceSQL;
+import service.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,11 +16,9 @@ public class MainServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        List<User> allUsersHQL = UserServiceHQL.getInstance().getAllUsers();
-        List<User> allUsersSQL = new UserServiceSQL().getAllUsers();
+        List<User> allUsers = UserService.getInstance().getAllUsers();
 
-        req.setAttribute("allUsersHQL", allUsersHQL);
-        req.setAttribute("allUsersSQL", allUsersSQL);
+        req.setAttribute("allUsers", allUsers);
         getServletContext().getRequestDispatcher("/MainPage.jsp").forward(req, resp);
     }
 }
