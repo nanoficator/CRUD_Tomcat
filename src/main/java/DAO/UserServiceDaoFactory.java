@@ -12,7 +12,7 @@ public class UserServiceDaoFactory {
     public static UserServiceDao getDao() throws DBException {
         try {
 
-            FileInputStream fileInputStream = new FileInputStream("src/main/resources/config.properties");
+            FileInputStream fileInputStream = new FileInputStream("C:\\Users\\Mikhail Kuzivanov\\IdeaProjects\\CRUD_Tomcat\\src\\main\\resources\\config.properties");
             Properties properties = new Properties();
             properties.load(fileInputStream);
             String daoType = properties.getProperty("DAOType");

@@ -9,17 +9,10 @@
 </head>
 <body>
 
-<table width="100%" border="0">
-
-    <tr>
-        <th width="48%">HQL</th>
-        <th width="4%"></th>
-        <th width="48%">SQL</th>
-    </tr>
-
+<table border="0">
     <tr>
         <td>
-            <table width="100%" border="1">
+            <table border="1">
 
                <tr>
                     <th>ID</th>
