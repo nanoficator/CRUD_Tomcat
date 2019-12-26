@@ -3,17 +3,18 @@ package DAO;
 import exception.DBException;
 import util.DBHelper;
 
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 public class UserServiceDaoFactory {
 
 
     public static UserServiceDao getDao() throws DBException {
-        try (FileInputStream fileInputStream = new FileInputStream("C:\\Users\\Admin\\IdeaProjects\\CRUD_Tomcat\\src\\main\\resources\\config.properties")) {
+        ClassLoader loader = Thread.currentThread().getContextClassLoader();
+        try (InputStream inputStream = loader.getResourceAsStream("config.properties")) {
             Properties properties = new Properties();
-            properties.load(fileInputStream);
+            properties.load(inputStream);
             String daoType = properties.getProperty("DAOType");
 
             if (daoType.equalsIgnoreCase("hql")) {
