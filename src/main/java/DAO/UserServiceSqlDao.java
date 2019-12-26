@@ -23,12 +23,13 @@ public class UserServiceSqlDao implements UserServiceDao {
         while (resultSet.next()) {
             Long id = resultSet.getLong(1);
             String firstName = resultSet.getString(3);
-            String secindName = resultSet.getString(6);
-            String userName = resultSet.getString(7);
+            String secindName = resultSet.getString(7);
+            String userName = resultSet.getString(8);
             String password = resultSet.getString(5);
             Long age = resultSet.getLong(2);
             String gender = resultSet.getString(4);
-            allData.add(new User(id, firstName, secindName, userName, password, age, gender));
+            String role = resultSet.getString(6);
+            allData.add(new User(id, firstName, secindName, userName, password, age, gender, role));
         }
         resultSet.close();
         statement.close();
@@ -44,13 +45,14 @@ public class UserServiceSqlDao implements UserServiceDao {
 
     @Override
     public void addData(User user) throws SQLException {
-        PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO users (first_name, second_name, user_name, password, age, gender) VALUES (?, ?, ?, ?, ?, ?)");
+        PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO users (first_name, second_name, user_name, password, age, gender, role) VALUES (?, ?, ?, ?, ?, ?, ?)");
         preparedStatement.setString(1, user.getFirstName());
         preparedStatement.setString(2, user.getSecondName());
         preparedStatement.setString(3, user.getUserName());
         preparedStatement.setString(4, user.getPassword());
         preparedStatement.setLong(5, user.getAge());
         preparedStatement.setString(6, user.getGender());
+        preparedStatement.setString(7, user.getRole());
         preparedStatement.execute();
         preparedStatement.close();
     }
@@ -73,11 +75,12 @@ public class UserServiceSqlDao implements UserServiceDao {
             User userById = new User();
             userById.setId(resultSet.getLong(1));
             userById.setFirstName(resultSet.getString(3));
-            userById.setSecondName(resultSet.getString(6));
-            userById.setUserName(resultSet.getString(7));
+            userById.setSecondName(resultSet.getString(7));
+            userById.setUserName(resultSet.getString(8));
             userById.setPassword(resultSet.getString(5));
             userById.setAge(resultSet.getLong(2));
             userById.setGender(resultSet.getString(4));
+            userById.setRole(resultSet.getString(6));
             return userById;
         }
         return null;
@@ -93,11 +96,12 @@ public class UserServiceSqlDao implements UserServiceDao {
             User userByUserName = new User();
             userByUserName.setId(resultSet.getLong(1));
             userByUserName.setFirstName(resultSet.getString(3));
-            userByUserName.setSecondName(resultSet.getString(6));
-            userByUserName.setUserName(resultSet.getString(7));
+            userByUserName.setSecondName(resultSet.getString(7));
+            userByUserName.setUserName(resultSet.getString(8));
             userByUserName.setPassword(resultSet.getString(5));
             userByUserName.setAge(resultSet.getLong(2));
             userByUserName.setGender(resultSet.getString(4));
+            userByUserName.setRole(resultSet.getString(6));
             return userByUserName;
         }
         return null;
@@ -157,4 +161,12 @@ public class UserServiceSqlDao implements UserServiceDao {
         preparedStatement.close();
     }
 
+    @Override
+    public void changeRole(Long id, String newRole) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement("UPDATE users SET role = ? WHERE id = ?");
+        preparedStatement.setString(1, newRole);
+        preparedStatement.setLong(2, id);
+        preparedStatement.execute();
+        preparedStatement.close();
+    }
 }

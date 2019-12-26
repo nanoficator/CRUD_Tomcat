@@ -25,11 +25,18 @@ public class EditUserServlet extends HttpServlet {
         req.setAttribute("password", changedUser.getPassword());
         req.setAttribute("age", changedUser.getAge());
         req.setAttribute("gender", changedUser.getGender());
+        req.setAttribute("role", changedUser.getRole());
 
         if (changedUser.getGender().equals("male")) {
             req.setAttribute("agender", "female");
         } else {
             req.setAttribute("agender", "male");
+        }
+
+        if (changedUser.getRole().equals("user")) {
+            req.setAttribute("arole", "admin");
+        } else {
+            req.setAttribute("arole", "user");
         }
 
         getServletContext().getRequestDispatcher("/EditUserPage.jsp").forward(req, resp);
@@ -47,6 +54,7 @@ public class EditUserServlet extends HttpServlet {
         String confirmPassword = req.getParameter("confirmPassword");
         String age = req.getParameter("age");
         String gender = req.getParameter("gender");
+        String role = req.getParameter("role");
 
         if (!password.equals(confirmPassword)) {
             req.setAttribute("message", "Error: Entered passwords do not match!");
@@ -57,13 +65,14 @@ public class EditUserServlet extends HttpServlet {
                 userName.equals("") ||
                 password.equals("") ||
                 age.equals("") ||
-                gender == null) {
+                gender == null ||
+                role == null) {
             req.setAttribute("message", "Error: All fields are required!");
             getServletContext().getRequestDispatcher("/ResultPage.jsp").forward(req, resp);
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         } else {
 
-            User changedUser = new User(id, firstName, secondName, userName, password, Long.parseLong(age), gender);
+            User changedUser = new User(id, firstName, secondName, userName, password, Long.parseLong(age), gender, role);
 
             String result = UserService.getInstance().changeUser(changedUser);
             if (result.contains("Error:")) {

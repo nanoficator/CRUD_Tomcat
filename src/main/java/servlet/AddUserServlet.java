@@ -27,6 +27,7 @@ public class AddUserServlet extends HttpServlet {
         String confirmPassword = req.getParameter("confirmPassword");
         String age = req.getParameter("age");
         String gender = req.getParameter("gender");
+        String role = req.getParameter("role");
 
         if (!password.equals(confirmPassword)) {
             req.setAttribute("message", "Error: Entered passwords do not match!");
@@ -37,13 +38,14 @@ public class AddUserServlet extends HttpServlet {
                 userName.equals("") ||
                 password.equals("") ||
                 age.equals("") ||
-                gender == null) {
+                gender == null ||
+                role == null) {
             req.setAttribute("message", "Error: All fields are required!");
             getServletContext().getRequestDispatcher("/ResultPage.jsp").forward(req, resp);
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         } else {
 
-            User newUser = new User(firstName, secondName, userName, password, Long.parseLong(age), gender);
+            User newUser = new User(firstName, secondName, userName, password, Long.parseLong(age), gender, role);
 
             String result = UserService.getInstance().addUser(newUser);
             if (result.contains("Error:")) {

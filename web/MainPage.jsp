@@ -21,6 +21,7 @@
                     <th>Username</th>
                     <th>Age</th>
                     <th>Gender</th>
+                   <th>Role</th>
                     <th>Options</th>
                </tr>
 
@@ -38,6 +39,7 @@
                     <td><%=user.getUserName()%></td>
                     <td><%=user.getAge()%></td>
                     <td><%=user.getGender()%></td>
+                    <td><%=user.getRole()%></td>
                     <td><a href=/delete/user?id=<%=user.getId()%>>Remove</a> / <a href=/edit/user?id=<%=user.getId()%>>Edit</a></td>
                 </tr>
                 <%

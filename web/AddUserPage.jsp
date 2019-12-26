@@ -19,6 +19,10 @@
         <input type="radio" value="male" name="gender">Male
         <input type="radio" value="female" name="gender">Female
     </p>
+    <p>Role:
+        <input type="radio" value="user" name="role">user
+        <input type="radio" value="admin" name="role">admin
+    </p>
     <p>Create new user: <input type="submit" name="SUBMIT"></p>
 </form>
 

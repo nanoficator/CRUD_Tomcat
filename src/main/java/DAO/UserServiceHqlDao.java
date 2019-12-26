@@ -10,6 +10,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import util.DBHelper;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class UserServiceHqlDao implements UserServiceDao {
@@ -104,7 +105,7 @@ public class UserServiceHqlDao implements UserServiceDao {
         Query query = session.createQuery("UPDATE User SET firstName = :firstName WHERE id = :id");
         query.setParameter("firstName", newFirstName);
         query.setParameter("id", id);
-        int result = query.executeUpdate();
+        query.executeUpdate();
         transaction.commit();
         session.close();
     }
@@ -116,7 +117,7 @@ public class UserServiceHqlDao implements UserServiceDao {
         Query query = session.createQuery("UPDATE User SET secondName = :secondName WHERE id = :id");
         query.setParameter("secondName", newSecondName);
         query.setParameter("id", id);
-        int result = query.executeUpdate();
+        query.executeUpdate();
         transaction.commit();
         session.close();
     }
@@ -128,7 +129,7 @@ public class UserServiceHqlDao implements UserServiceDao {
         Query query = session.createQuery("UPDATE User SET userName = :newUserName WHERE id = :id");
         query.setParameter("newUserName", newUserName);
         query.setParameter("id", id);
-        int result = query.executeUpdate();
+        query.executeUpdate();
         transaction.commit();
         session.close();
     }
@@ -140,7 +141,7 @@ public class UserServiceHqlDao implements UserServiceDao {
         Query query = session.createQuery("UPDATE User SET password = :password WHERE id = :id");
         query.setParameter("password", newPassword);
         query.setParameter("id", id);
-        int result = query.executeUpdate();
+        query.executeUpdate();
         transaction.commit();
         session.close();
     }
@@ -152,7 +153,7 @@ public class UserServiceHqlDao implements UserServiceDao {
         Query query = session.createQuery("UPDATE User SET age = :age WHERE id = :id");
         query.setParameter("age", newAge);
         query.setParameter("id", id);
-        int result = query.executeUpdate();
+        query.executeUpdate();
         transaction.commit();
         session.close();
     }
@@ -164,9 +165,20 @@ public class UserServiceHqlDao implements UserServiceDao {
         Query query = session.createQuery("UPDATE User SET gender = :gender WHERE id = :id");
         query.setParameter("gender", newGender);
         query.setParameter("id", id);
-        int result = query.executeUpdate();
+        query.executeUpdate();
         transaction.commit();
         session.close();
     }
 
+    @Override
+    public void changeRole(Long id, String newRole) throws SQLException {
+        Session session = getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        Query query = session.createQuery("UPDATE User SET role = :role WHERE id = :id");
+        query.setParameter("role", newRole);
+        query.setParameter("id", id);
+        query.executeUpdate();
+        transaction.commit();
+        session.close();
+    }
 }

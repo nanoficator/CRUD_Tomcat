@@ -19,7 +19,12 @@
         <input type="radio" value="${gender}" checked name="gender">${gender}
         <input type="radio" value="${agender}" name="gender">${agender}
 
-        </p>
+    </p>
+    <p>Role:
+        <input type="radio" value="${role}" checked name="role">${role}
+        <input type="radio" value="${arole}" name="role">${arole}
+
+    </p>
     <p>Change user: <input type="submit" name="SUBMIT"></p>
 </form>
 

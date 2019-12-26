@@ -8,9 +8,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
   <head>
-    <title>Start page</title>
+    <title>Auth page</title>
   </head>
   <body>
-  <a href="/main">START</a>
+  <form action="/" method="post">
+    <p>Login: <input type="text" name="login"></p>
+    <p>Password: <input type="password" name="password"></p>
+    <p><input type="submit" value="SIGN IN"></p>
+  </form>
   </body>
 </html>

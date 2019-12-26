@@ -133,6 +133,7 @@ public class UserService {
         String newPassword = changedUser.getPassword();
         Long newAge = changedUser.getAge();
         String newGender = changedUser.getGender();
+        String newRole = changedUser.getRole();
 
         User userFromDBById = getUserByID(id);
         User userFromDBByUserName = getUserByUserName(newUserName);
@@ -147,7 +148,8 @@ public class UserService {
                 newUserName.equals("") ||
                 newPassword.equals("") ||
                 newAge == null ||
-                newGender.equals("")) {
+                newGender.equals("") ||
+                newRole.equals("")) {
             return "Error: All fields are required!";
         }
 
@@ -167,6 +169,7 @@ public class UserService {
             dao.changePassword(id, newPassword);
             dao.changeAge(id, newAge);
             dao.changeGender(id, newGender);
+            dao.changeRole(id, newRole);
             return "Changes saved!";
         } catch (SQLException e) {
             throw new DBException(e);

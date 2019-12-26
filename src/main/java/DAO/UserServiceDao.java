@@ -31,4 +31,6 @@ public interface UserServiceDao {
 
     void changeGender(Long id, String newGender) throws SQLException;
 
+    void changeRole(Long id, String newRole) throws SQLException;
+
 }
