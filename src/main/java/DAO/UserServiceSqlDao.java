@@ -23,12 +23,12 @@ public class UserServiceSqlDao implements UserServiceDao {
         while (resultSet.next()) {
             Long id = resultSet.getLong(1);
             String firstName = resultSet.getString(3);
-            String secindName = resultSet.getString(7);
-            String userName = resultSet.getString(8);
+            String secindName = resultSet.getString(6);
+            String userName = resultSet.getString(7);
             String password = resultSet.getString(5);
             Long age = resultSet.getLong(2);
             String gender = resultSet.getString(4);
-            String role = resultSet.getString(6);
+            String role = resultSet.getString(8);
             allData.add(new User(id, firstName, secindName, userName, password, age, gender, role));
         }
         resultSet.close();
@@ -75,12 +75,12 @@ public class UserServiceSqlDao implements UserServiceDao {
             User userById = new User();
             userById.setId(resultSet.getLong(1));
             userById.setFirstName(resultSet.getString(3));
-            userById.setSecondName(resultSet.getString(7));
-            userById.setUserName(resultSet.getString(8));
+            userById.setSecondName(resultSet.getString(6));
+            userById.setUserName(resultSet.getString(7));
             userById.setPassword(resultSet.getString(5));
             userById.setAge(resultSet.getLong(2));
             userById.setGender(resultSet.getString(4));
-            userById.setRole(resultSet.getString(6));
+            userById.setRole(resultSet.getString(8));
             return userById;
         }
         return null;
@@ -96,12 +96,12 @@ public class UserServiceSqlDao implements UserServiceDao {
             User userByUserName = new User();
             userByUserName.setId(resultSet.getLong(1));
             userByUserName.setFirstName(resultSet.getString(3));
-            userByUserName.setSecondName(resultSet.getString(7));
-            userByUserName.setUserName(resultSet.getString(8));
+            userByUserName.setSecondName(resultSet.getString(6));
+            userByUserName.setUserName(resultSet.getString(7));
             userByUserName.setPassword(resultSet.getString(5));
             userByUserName.setAge(resultSet.getLong(2));
             userByUserName.setGender(resultSet.getString(4));
-            userByUserName.setRole(resultSet.getString(6));
+            userByUserName.setRole(resultSet.getString(8));
             return userByUserName;
         }
         return null;

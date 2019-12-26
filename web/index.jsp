@@ -11,7 +11,7 @@
     <title>Auth page</title>
   </head>
   <body>
-  <form action="/" method="post">
+  <form action="/main" method="post">
     <p>Login: <input type="text" name="login"></p>
     <p>Password: <input type="password" name="password"></p>
     <p><input type="submit" value="SIGN IN"></p>

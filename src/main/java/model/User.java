@@ -116,6 +116,6 @@ public class User {
     }
 
     public void setRole(String role) {
-        this.gender = role;
+        this.role = role;
     }
 }
