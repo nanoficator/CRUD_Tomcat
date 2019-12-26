@@ -1,18 +1,8 @@
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.Properties;
+import java.io.File;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        try {
-
-            FileInputStream fileInputStream = new FileInputStream("src/main/resources/config.properties");
-            Properties properties = new Properties();
-            properties.load(fileInputStream);
-
-            String daoType = properties.getProperty("DAOType");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        String str = new File("C:\\Users\\Admin\\IdeaProjects\\CRUD_Tomcat\\src\\main\\resources\\config.properties").getAbsolutePath();
+        System.out.println(str);
     }
 }

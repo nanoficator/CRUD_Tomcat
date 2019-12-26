@@ -40,7 +40,7 @@ public class UserServiceHqlDao implements UserServiceDao {
     public List<User> getAllData() {
         Session session = getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
-        List<User> allUsers = session.createQuery("from User").list();
+        List<User> allUsers = session.createQuery("FROM User").list();
         transaction.commit();
         session.close();
         return allUsers;
@@ -50,7 +50,7 @@ public class UserServiceHqlDao implements UserServiceDao {
     public void deleteAllData() {
         Session session = getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
-        session.createQuery("delete from User").executeUpdate();
+        session.createQuery("DELETE FROM User").executeUpdate();
         transaction.commit();
         session.close();
     }
@@ -77,7 +77,7 @@ public class UserServiceHqlDao implements UserServiceDao {
     public User getDataByID(Long id) {
         Session session = getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
-        Query query = session.createQuery("from User where id = :id");
+        Query query = session.createQuery("FROM User WHERE id = :id");
         query.setParameter("id", id);
         User userFromDB = (User) query.uniqueResult();
         transaction.commit();
@@ -89,7 +89,7 @@ public class UserServiceHqlDao implements UserServiceDao {
     public User getDataByUserName(String userName) {
         Session session = getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
-        Query query = session.createQuery("from User where user_name = :user_name");
+        Query query = session.createQuery("FROM User WHERE user_name = :user_name");
         query.setParameter("user_name", userName);
         User userFromDB = (User) query.uniqueResult();
         transaction.commit();
@@ -101,7 +101,7 @@ public class UserServiceHqlDao implements UserServiceDao {
     public void changeFirstName(Long id, String newFirstName) {
         Session session = getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
-        Query query = session.createQuery("update User set firstName = :firstName where id = :id");
+        Query query = session.createQuery("UPDATE User SET firstName = :firstName WHERE id = :id");
         query.setParameter("firstName", newFirstName);
         query.setParameter("id", id);
         int result = query.executeUpdate();
@@ -113,7 +113,7 @@ public class UserServiceHqlDao implements UserServiceDao {
     public void changeSecondName(Long id, String newSecondName) {
         Session session = getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
-        Query query = session.createQuery("update User set secondName = :secondName where id = :id");
+        Query query = session.createQuery("UPDATE User SET secondName = :secondName WHERE id = :id");
         query.setParameter("secondName", newSecondName);
         query.setParameter("id", id);
         int result = query.executeUpdate();
@@ -125,7 +125,7 @@ public class UserServiceHqlDao implements UserServiceDao {
     public void changeUserName(Long id, String newUserName) {
         Session session = getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
-        Query query = session.createQuery("update User set userName = :newUserName where id = :id");
+        Query query = session.createQuery("UPDATE User SET userName = :newUserName WHERE id = :id");
         query.setParameter("newUserName", newUserName);
         query.setParameter("id", id);
         int result = query.executeUpdate();
@@ -137,7 +137,7 @@ public class UserServiceHqlDao implements UserServiceDao {
     public void changePassword(Long id, String newPassword) {
         Session session = getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
-        Query query = session.createQuery("update User set password = :password where id = :id");
+        Query query = session.createQuery("UPDATE User SET password = :password WHERE id = :id");
         query.setParameter("password", newPassword);
         query.setParameter("id", id);
         int result = query.executeUpdate();
@@ -149,7 +149,7 @@ public class UserServiceHqlDao implements UserServiceDao {
     public void changeAge(Long id, Long newAge) {
         Session session = getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
-        Query query = session.createQuery("update User set age = :age where id = :id");
+        Query query = session.createQuery("UPDATE User SET age = :age WHERE id = :id");
         query.setParameter("age", newAge);
         query.setParameter("id", id);
         int result = query.executeUpdate();
@@ -161,7 +161,7 @@ public class UserServiceHqlDao implements UserServiceDao {
     public void changeGender(Long id, String newGender) {
         Session session = getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
-        Query query = session.createQuery("update User set gender = :gender where id = :id");
+        Query query = session.createQuery("UPDATE User SET gender = :gender WHERE id = :id");
         query.setParameter("gender", newGender);
         query.setParameter("id", id);
         int result = query.executeUpdate();

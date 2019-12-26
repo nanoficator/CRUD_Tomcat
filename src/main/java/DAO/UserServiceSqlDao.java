@@ -18,7 +18,7 @@ public class UserServiceSqlDao implements UserServiceDao {
     public List<User> getAllData() throws SQLException {
         List<User> allData = new LinkedList<>();
         Statement statement = connection.createStatement();
-        statement.execute("select * from users");
+        statement.execute("SELECT * FROM users");
         ResultSet resultSet = statement.getResultSet();
         while (resultSet.next()) {
             Long id = resultSet.getLong(1);
@@ -38,13 +38,13 @@ public class UserServiceSqlDao implements UserServiceDao {
     @Override
     public void deleteAllData() throws SQLException {
         Statement statement = connection.createStatement();
-        statement.execute("delete from users");
+        statement.execute("DELETE FROM users");
         statement.close();
     }
 
     @Override
     public void addData(User user) throws SQLException {
-        PreparedStatement preparedStatement = connection.prepareStatement("insert into users (first_name, second_name, user_name, password, age, gender) values (?, ?, ?, ?, ?, ?)");
+        PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO users (first_name, second_name, user_name, password, age, gender) VALUES (?, ?, ?, ?, ?, ?)");
         preparedStatement.setString(1, user.getFirstName());
         preparedStatement.setString(2, user.getSecondName());
         preparedStatement.setString(3, user.getUserName());
@@ -57,7 +57,7 @@ public class UserServiceSqlDao implements UserServiceDao {
 
     @Override
     public void deleteData(User user) throws SQLException {
-        PreparedStatement preparedStatement = connection.prepareStatement("delete from users where id = ?");
+        PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM users WHERE id = ?");
         preparedStatement.setLong(1, user.getId());
         preparedStatement.execute();
         preparedStatement.close();
@@ -65,7 +65,7 @@ public class UserServiceSqlDao implements UserServiceDao {
 
     @Override
     public User getDataByID(Long id) throws SQLException {
-        PreparedStatement preparedStatement = connection.prepareStatement("select * from users where id = ?");
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM users WHERE id = ?");
         preparedStatement.setLong(1, id);
         preparedStatement.execute();
         ResultSet resultSet = preparedStatement.getResultSet();
@@ -85,7 +85,7 @@ public class UserServiceSqlDao implements UserServiceDao {
 
     @Override
     public User getDataByUserName (String userName) throws SQLException {
-        PreparedStatement preparedStatement = connection.prepareStatement("select * from users where user_name = ?");
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM users WHERE user_name = ?");
         preparedStatement.setString(1,userName);
         preparedStatement.execute();
         ResultSet resultSet = preparedStatement.getResultSet();
@@ -105,7 +105,7 @@ public class UserServiceSqlDao implements UserServiceDao {
 
     @Override
     public void changeFirstName(Long id, String newFirstName) throws SQLException {
-        PreparedStatement preparedStatement = connection.prepareStatement("update users set first_name = ? where id = ?");
+        PreparedStatement preparedStatement = connection.prepareStatement("UPDATE users SET first_name = ? WHERE id = ?");
         preparedStatement.setString(1, newFirstName);
         preparedStatement.setLong(2, id);
         preparedStatement.execute();
@@ -114,7 +114,7 @@ public class UserServiceSqlDao implements UserServiceDao {
 
     @Override
     public void changeSecondName(Long id, String newSecondName) throws SQLException {
-        PreparedStatement preparedStatement = connection.prepareStatement("update users set second_name = ? where id = ?");
+        PreparedStatement preparedStatement = connection.prepareStatement("UPDATE users SET second_name = ? WHERE id = ?");
         preparedStatement.setString(1, newSecondName);
         preparedStatement.setLong(2, id);
         preparedStatement.execute();
@@ -123,7 +123,7 @@ public class UserServiceSqlDao implements UserServiceDao {
 
     @Override
     public void changeUserName(Long id, String newUserName) throws SQLException {
-        PreparedStatement preparedStatement = connection.prepareStatement("update users set user_name = ? where id = ?");
+        PreparedStatement preparedStatement = connection.prepareStatement("UPDATE users SET user_name = ? WHERE id = ?");
         preparedStatement.setString(1, newUserName);
         preparedStatement.setLong(2, id);
         preparedStatement.execute();
@@ -132,7 +132,7 @@ public class UserServiceSqlDao implements UserServiceDao {
 
     @Override
     public void changePassword(Long id, String newPassword) throws SQLException {
-        PreparedStatement preparedStatement = connection.prepareStatement("update users set password = ? where id = ?");
+        PreparedStatement preparedStatement = connection.prepareStatement("UPDATE users SET password = ? WHERE id = ?");
         preparedStatement.setString(1, newPassword);
         preparedStatement.setLong(2, id);
         preparedStatement.execute();
@@ -141,7 +141,7 @@ public class UserServiceSqlDao implements UserServiceDao {
 
     @Override
     public void changeAge(Long id, Long newAge) throws SQLException {
-        PreparedStatement preparedStatement = connection.prepareStatement("update users set age = ? where id = ?");
+        PreparedStatement preparedStatement = connection.prepareStatement("UPDATE users SET age = ? WHERE id = ?");
         preparedStatement.setLong(1, newAge);
         preparedStatement.setLong(2, id);
         preparedStatement.execute();
@@ -150,7 +150,7 @@ public class UserServiceSqlDao implements UserServiceDao {
 
     @Override
     public void changeGender(Long id, String newGender) throws SQLException {
-        PreparedStatement preparedStatement = connection.prepareStatement("update users set gender = ? where id = ?");
+        PreparedStatement preparedStatement = connection.prepareStatement("UPDATE users SET gender = ? WHERE id = ?");
         preparedStatement.setString(1, newGender);
         preparedStatement.setLong(2, id);
         preparedStatement.execute();
