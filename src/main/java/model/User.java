@@ -42,6 +42,7 @@ public class User {
         this.password = password;
         this.age = age;
         this.gender = gender;
+        this.role = role;
     }
 
     public User(Long id, String firstName, String secondName, String userName, String password, Long age, String gender, String role) {
