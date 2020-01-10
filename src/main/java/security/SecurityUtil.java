@@ -6,7 +6,6 @@ import java.util.Set;
 
 public class SecurityUtil {
 
-    // Проверить требует ли данный 'request' входа в систему или нет.
     public static boolean isSecurityPage(HttpServletRequest request) {
         String urlPattern = UrlPatternUtil.getUrlPattern(request);
 
