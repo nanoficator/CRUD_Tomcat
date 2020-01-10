@@ -9,7 +9,6 @@ import java.util.Properties;
 
 public class UserServiceDaoFactory {
 
-
     public static UserServiceDao getDao() throws DBException {
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         try (InputStream inputStream = loader.getResourceAsStream("config.properties")) {
@@ -32,5 +31,4 @@ public class UserServiceDaoFactory {
 
         }
     }
-
 }
