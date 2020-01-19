@@ -21,4 +21,9 @@ public class MainServlet extends HttpServlet {
         req.setAttribute("allUsers", allUsers);
         getServletContext().getRequestDispatcher("/MainPage.jsp").forward(req, resp);
     }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doGet(req, resp);
+    }
 }
