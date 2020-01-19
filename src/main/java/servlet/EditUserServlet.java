@@ -14,7 +14,6 @@ import java.io.IOException;
 public class EditUserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         Long id = Long.parseLong(req.getParameter("id"));
         User changedUser = UserService.getInstance().getUserByID(id);
 
