@@ -20,7 +20,6 @@ public class LoginServlet extends HttpServlet {
         User userFromDB = UserService.getInstance().getUserByUserName(userName);
         if (userFromDB.getPassword().equals(password)) {
             req.getSession().setAttribute("loggedUser", userFromDB);
-            req.getRequestDispatcher("/main").forward(req, resp);
             resp.setStatus(HttpServletResponse.SC_OK);
         } else {
             req.setAttribute("message", "login or password is incorrect!");
