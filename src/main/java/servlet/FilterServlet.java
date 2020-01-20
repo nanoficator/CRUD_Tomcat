@@ -20,6 +20,7 @@ public class FilterServlet implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
+        HttpServletResponse httpServletResponse = (HttpServletResponse) servletResponse;
         HttpSession httpSession = httpServletRequest.getSession();
         User loggedUser = (User) httpSession.getAttribute("loggedUser");
         if (loggedUser == null) {
@@ -27,10 +28,9 @@ public class FilterServlet implements Filter {
         } else {
             String userRole = loggedUser.getRole();
             if (userRole.equalsIgnoreCase("user")) {
-                String str = ((HttpServletRequest) servletRequest).getPathInfo();
-                if (httpServletRequest.getContextPath().contains("admin")) {
+                if (httpServletRequest.getRequestURI().contains("admin")) {
                     httpServletRequest.setAttribute("message", "Forbidden!");
-                    httpServletRequest.getRequestDispatcher("/ResultPage.jsp").forward(httpServletRequest, servletResponse);
+                    httpServletRequest.getRequestDispatcher("/ResultPage.jsp").forward(httpServletRequest, httpServletResponse);
                 }
             }
         }

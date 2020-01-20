@@ -40,7 +40,7 @@
                     <td><%=user.getAge()%></td>
                     <td><%=user.getGender()%></td>
                     <td><%=user.getRole()%></td>
-                    <td><a href=/admin/delete/user?id=<%=user.getId()%>>Remove</a> / <a href=/admin/edit/user?id=<%=user.getId()%>>Edit</a> / <a href=/user/info/user?id=<%=user.getId()%>>info</a></td>
+                    <td><a href=/admin/delete/user?id=<%=user.getId()%>>Remove</a> / <a href=/admin/edit/user?id=<%=user.getId()%>>Edit</a> / <a href=/user/info/user?id=<%=user.getId()%>>Info</a></td>
                 </tr>
                 <%
                     }
