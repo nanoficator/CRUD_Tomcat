@@ -27,6 +27,7 @@ public class FilterServlet implements Filter {
         } else {
             String userRole = loggedUser.getRole();
             if (userRole.equalsIgnoreCase("user")) {
+                String str = ((HttpServletRequest) servletRequest).getPathInfo();
                 if (httpServletRequest.getContextPath().contains("admin")) {
                     httpServletRequest.setAttribute("message", "Forbidden!");
                     httpServletRequest.getRequestDispatcher("/ResultPage.jsp").forward(httpServletRequest, servletResponse);

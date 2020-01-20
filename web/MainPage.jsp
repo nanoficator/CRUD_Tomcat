@@ -53,8 +53,8 @@
     <tr>
         <td>
             <table align="center" border="0">
-                <th><a href="/delete/all">CLEAR DATA BASE</a></th>
-                <th><a href="/add">ADD NEW USER</a></th>
+                <th><a href="/admin/delete/all">CLEAR DATA BASE</a></th>
+                <th><a href="/admin/add">ADD NEW USER</a></th>
             </table>
         </td>
     </tr>

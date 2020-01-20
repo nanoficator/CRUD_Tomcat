@@ -14,6 +14,23 @@ import java.io.IOException;
 public class InfoUserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Long id = Long.parseLong(req.getParameter("id"));
+        User userFromDB = UserService.getInstance().getUserByID(id);
+
+        req.setAttribute("id", userFromDB.getId());
+        req.setAttribute("firstName", userFromDB.getFirstName());
+        req.setAttribute("secondName", userFromDB.getSecondName());
+        req.setAttribute("userName", userFromDB.getUserName());
+        req.setAttribute("age", userFromDB.getAge());
+        req.setAttribute("gender", userFromDB.getGender());
+        req.setAttribute("role", userFromDB.getRole());
+
+        getServletContext().getRequestDispatcher("/InfoUserPage.jsp").forward(req, resp);
+        resp.setStatus(HttpServletResponse.SC_OK);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User user = (User) req.getSession().getAttribute("loggedUser");
 
         req.setAttribute("id", user.getId());
@@ -26,10 +43,5 @@ public class InfoUserServlet extends HttpServlet {
 
         getServletContext().getRequestDispatcher("/InfoUserPage.jsp").forward(req, resp);
         resp.setStatus(HttpServletResponse.SC_OK);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        doGet(req, resp);
     }
 }
