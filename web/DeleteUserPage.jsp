@@ -7,11 +7,11 @@
 <body>
 
 <p>Are you sure to delete ${message}?</p>
-<form action="/delete/${id}" method="post">
+<form action="/admin/delete/${id}" method="post">
     <button>YES</button>
 </form>
 
-<form action="/main" method="get">
+<form action="/admin/main" method="get">
     <button>NO</button>
 </form>
 

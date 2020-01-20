@@ -6,9 +6,9 @@
 </head>
 <body>
 
-<a href=/main>Back to main page</a>
+<a href=/admin/main>Back to main page</a>
 
-<form action="/edit/user?id=${id}" method="post">
+<form action="/admin/edit/user?id=${id}" method="post">
     <p>First Name: <input type="text" value="${firstName}" name="firstName"></p>
     <p>Second Name: <input type="text" value="${secondName}" name="secondName"></p>
     <p>Username: <input type="text" value="${userName}" name="userName"></p>

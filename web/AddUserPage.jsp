@@ -6,9 +6,9 @@
 </head>
 <body>
 
-<a href=/main>Back to main page</a>
+<a href=/admin/main>Back to main page</a>
 
-<form action="/add/" method="post">
+<form action="/admin/add/" method="post">
     <p>First Name: <input type="text" name="firstName"></p>
     <p>Second Name: <input type="text" name="secondName"></p>
     <p>Username: <input type="text" name="userName"></p>
