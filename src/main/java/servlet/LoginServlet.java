@@ -21,6 +21,13 @@ public class LoginServlet extends HttpServlet {
         if (userFromDB.getPassword().equals(password)) {
             req.getSession().setAttribute("loggedUser", userFromDB);
             resp.setStatus(HttpServletResponse.SC_OK);
+            String userRole = userFromDB.getRole();
+            if (userRole.equalsIgnoreCase("admin")) {
+                req.getRequestDispatcher("/admin/main").forward(req, resp);
+            }
+            if (userRole.equalsIgnoreCase("user")) {
+                req.getRequestDispatcher("/user/info/id=" + userFromDB.getId()).forward(req, resp);
+            }
         } else {
             req.setAttribute("message", "login or password is incorrect!");
             getServletContext().getRequestDispatcher("/ResultPage.jsp").forward(req, resp);

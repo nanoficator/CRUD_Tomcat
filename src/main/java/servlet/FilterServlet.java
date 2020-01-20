@@ -26,11 +26,11 @@ public class FilterServlet implements Filter {
             servletRequest.getRequestDispatcher("index.jsp");
         } else {
             String userRole = loggedUser.getRole();
-            if (userRole.equalsIgnoreCase("admin")) {
-                servletRequest.getRequestDispatcher("/admin/main").forward(servletRequest, servletResponse);
-            }
             if (userRole.equalsIgnoreCase("user")) {
-                servletRequest.getRequestDispatcher("/user/info/id=" + loggedUser.getId()).forward(servletRequest, servletResponse);
+                if (httpServletRequest.getContextPath().contains("admin")) {
+                    httpServletRequest.setAttribute("message", "Forbidden!");
+                    httpServletRequest.getRequestDispatcher("/ResultPage.jsp").forward(httpServletRequest, servletResponse);
+                }
             }
         }
         filterChain.doFilter(servletRequest, servletResponse);
