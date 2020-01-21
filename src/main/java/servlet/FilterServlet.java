@@ -28,7 +28,13 @@ public class FilterServlet implements Filter {
         } else {
             String userRole = loggedUser.getRole();
             if (userRole.equalsIgnoreCase("user")) {
-                if (httpServletRequest.getRequestURI().contains("admin")) {
+                String path = httpServletRequest.getRequestURI();
+                if (path.contains("/admin/")) {
+                    httpServletRequest.setAttribute("message", "Forbidden!");
+                    httpServletRequest.getRequestDispatcher("/ResultPage.jsp").forward(httpServletRequest, httpServletResponse);
+                }
+                if (path.contains("/user/")) {
+                    if (!path.equalsIgnoreCase("/user/info/user?id=" + loggedUser.getId()))
                     httpServletRequest.setAttribute("message", "Forbidden!");
                     httpServletRequest.getRequestDispatcher("/ResultPage.jsp").forward(httpServletRequest, httpServletResponse);
                 }
