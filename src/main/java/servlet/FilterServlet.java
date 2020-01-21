@@ -24,7 +24,7 @@ public class FilterServlet implements Filter {
         HttpSession httpSession = httpServletRequest.getSession();
         User loggedUser = (User) httpSession.getAttribute("loggedUser");
         if (loggedUser == null) {
-            servletRequest.getRequestDispatcher("index.jsp");
+            servletRequest.getRequestDispatcher("/index.jsp").forward(httpServletRequest, httpServletResponse);
         } else {
             String userRole = loggedUser.getRole();
             if (userRole.equalsIgnoreCase("user")) {
